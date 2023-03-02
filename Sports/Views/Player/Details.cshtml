@@ -1,0 +1,145 @@
+﻿@model Sports.Models.tbl_player
+@using Sports.Models
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    SportsEntities db = new SportsEntities();
+
+    var _team = db.tbl_teams.Where(x => x.team_id == Model.team_id).SingleOrDefault();
+    var _manager = db.vw_manager.Where(x => x.manager_id == Model.manager_id).SingleOrDefault();
+}
+
+<div class="adminx-content">
+    <div class="adminx-main-content">
+        <div class="container-fluid">
+            @using (Html.BeginForm())
+
+            {
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Player Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <table class="table">
+
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <table class="table table-bordered">
+                                                    <tr>
+                                                        <td>
+                                                            Id:
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="player_id" value="@Model.player_id" type="text" name="player_id" class="form-control" style="width: 400px;" maxlength="25" disabled />
+                                                        </td>
+
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>
+                                                            Firstname
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="firstname" value="@Model.firstname" type="text" name="firstname" class="form-control" style="width: 400px;" maxlength="25" disabled />
+                                                        </td>
+
+                                                    </tr>
+
+
+
+                                                    <tr>
+                                                        <td>
+                                                            Lastname
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="lastname" value="@Model.lastname" type="text" name="lastname" class="form-control" style="width: 400px;" maxlength="25" disabled />
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Jersey No
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="jersey_no" value="@Model.jersey_no" type="text" name="jersey_no" class="form-control" style="width: 400px;" maxlength="25" disabled />
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Team
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="team" type="text" value="@_team.team_name" name="team" class="form-control" style="width: 400px;" maxlength="25" disabled />
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Manager
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="manager" type="text" value="@_manager.fullname" name="manager" class="form-control" style="width: 400px;" maxlength="25" disabled />
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Created Date:
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="created_date" type="text" value="@Model.created_date" name="created_date" class="form-control" style="width: 400px;" maxlength="25" disabled />
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Updated Date:
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="updated_date" type="text" value="@Model.updated_date" name="updated_date" class="form-control" style="width: 400px;" maxlength="25" disabled />
+                                                        </td>
+
+                                                    </tr>
+
+                                                </table>
+
+
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+
+
+                </table>
+
+
+                @Html.ActionLink("Back to List", "Index")
+
+            }
+        </div>
+    </div>
+</div>
+

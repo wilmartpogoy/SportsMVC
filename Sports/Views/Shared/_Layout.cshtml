@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link rel="stylesheet" type="text/css" href="~/Content/adminx.css" media="screen" />
+    <script src="~/Scripts/jquery-1.7.1.js"></script>
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+
+
+    <script src="~/Scripts/jquery.js" defer></script>
+    <script src="~/Scripts/popper.min.js" defer></script>
+    <script src="~/Scripts/bootstrap.min.js" defer></script>
+    <script src="~/Scripts/vendor.js" defer></script>
+    <script src="~/Scripts/adminx.js" defer></script>
+    <script src="~/Scripts/jquery.datatable.js" defer></script>
+    <script src="~/Scripts/datatables.bootstrap4.js" defer></script>
+</head>
+<body>
+    <div class="adminx-container">
+        <nav class="navbar navbar-expand justify-content-between fixed-top">
+            <a class="navbar-brand mb-0 h1 d-none d-md-block" href="#">
+
+                Sports Tournament
+            </a>
+
+
+
+            <div class="d-flex flex-1 d-block d-md-none">
+                <a href="#" class="sidebar-toggle ml-3">
+                    <i data-feather="menu"></i>
+                </a>
+            </div>
+
+
+        </nav>
+
+        <div class="adminx-sidebar expand-hover push">
+            <ul class="sidebar-nav">
+                <li class="sidebar-nav-item">
+                    <a href="~/Home/Home" class="sidebar-nav-link ">
+                        <span class="sidebar-nav-icon">
+                            <i data-feather="home"></i>
+                        </span>
+                        <span class="sidebar-nav-name">
+                            Home
+                        </span>
+
+                    </a>
+                </li>
+
+                <li class="sidebar-nav-item">
+                    <a href="~/Player/Index" class="sidebar-nav-link ">
+                        <span class="sidebar-nav-icon">
+                            <i data-feather="user-plus"></i>
+                        </span>
+                        <span class="sidebar-nav-name">
+                            Player
+                        </span>
+
+                    </a>
+                </li>
+
+                <li class="sidebar-nav-item">
+                    <a href="~/Manager/Index" class="sidebar-nav-link ">
+                        <span class="sidebar-nav-icon">
+                            <i data-feather="users"></i>
+                        </span>
+                        <span class="sidebar-nav-name">
+                            Manager
+                        </span>
+
+                    </a>
+                </li>
+                <li class="sidebar-nav-item">
+                    <a href="~/Coach/Index" class="sidebar-nav-link ">
+                        <span class="sidebar-nav-icon">
+                            <i data-feather="user"></i>
+                        </span>
+                        <span class="sidebar-nav-name">
+                            Coach
+                        </span>
+
+                    </a>
+                </li>
+                <li class="sidebar-nav-item">
+                    <a href="~/Team/Index" class="sidebar-nav-link ">
+                        <span class="sidebar-nav-icon">
+                            <i data-feather="flag"></i>
+                        </span>
+                        <span class="sidebar-nav-name">
+                            Team
+                        </span>
+
+                    </a>
+                </li>
+
+            </ul>
+        </div><!-- Sidebar End -->
+        <!-- adminx-content-aside -->
+        <div class="adminx-content">
+            <!-- <div class="adminx-aside">
+
+            </div> -->
+
+            <div class="adminx-main-content">
+                <div class="container-fluid">
+
+
+                    @RenderBody()
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,174 @@
+﻿
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="adminx-content">
+    <div class="adminx-main-content">
+        <div class="container-fluid">
+            @using (Html.BeginForm())
+
+            {
+
+
+
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Create Coach</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <table class="table">
+
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <table class="table table-bordered">
+
+
+
+                                                    <tr>
+                                                        <td>
+                                                            Firstname:
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="firstname" type="text" name="firstname" class="form-control" style="width: 400px;" maxlength="25"  />
+                                                        </td>
+
+                                                    </tr>
+
+
+                                                    <tr>
+                                                        <td>
+                                                            Lastname:
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="lastname" type="text" name="lastname" class="form-control" style="width: 400px;" maxlength="25"  />
+                                                        </td>
+
+                                                    </tr>
+                          
+
+                                                </table>
+
+
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+                    <tr>
+                        <td>
+
+                            <input type="button" id="btnSubmit" name="btnSubmit" value="Submit" class="btn btn-secondary float-right" />
+                        </td>
+                    </tr>
+
+
+
+                </table>
+
+
+                @Html.ActionLink("Back to List", "Index")
+
+            }
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#btnSubmit").click(function () {
+            var coach = {}
+            coach.firstname = $("#firstname").val().trim();
+            coach.lastname = $("#lastname").val().trim();
+
+            if (coach.firstname == "" && coach.lastname == "") {
+                if (!$("#invalid").length) {
+                    $('#firstname').before('<span class="form-label is-invalid" id="invalid" name="invalid" >Please enter a firstname</span>');
+                }
+                if (!$("#invalid1").length) {
+                    $('#lastname').before('<span class="form-label is-invalid" id="invalid1" name="invalid1" >Please enter a lastname</span>');
+                }
+                    $("#firstname").attr('class', 'form-control is-invalid');
+                $("#lastname").attr('class', 'form-control is-invalid');
+            }
+            else if (coach.firstname == "") {
+                if (!$("#invalid").length) {
+                    $('#firstname').before('<span class="form-label is-invalid" id="invalid" name="invalid" >Please enter a firstname</span>');
+                }
+                $("#invalid1").remove();
+                $("#lastname").attr('class', 'form-control');
+                $("#firstname").attr('class', 'form-control is-invalid');
+            }
+            else if (coach.lastname == "") {
+                if (!$("#invalid1").length) {
+                    $('#lastname').before('<span class="form-label is-invalid" id="invalid1" name="invalid1" >Please enter a lastname</span>');
+                }
+                $("#invalid").remove();
+                $("#firstname").attr('class', 'form-control');
+                $("#lastname").attr('class', 'form-control is-invalid');
+            }
+            else {
+
+                $.ajax(
+                    {
+                        type: "POST", //HTTP POST Method
+                        url: "/Coach/Create", // Controller/View
+                        data: '{coach: ' + JSON.stringify(coach) + '}',
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+
+                            if (data.success == true) {
+
+                                //     $("span").addAttr("hidden");
+                                $("#invalid").remove();
+                                $("#invalid1").remove();
+                                //    $("#name").addClass("form-control");
+                                $("#firstname").attr('class', 'form-control');
+                                $("#lastname").attr('class', 'form-control');
+                                $('#firstname').val("");
+                                $('#lastname').val("");
+                                alert(''+data.message+'');
+                            }
+
+                            else {
+                                if (!$("#invalid").length) {
+                                    $('#firstname').before('<span class="form-label is-invalid" id="invalid" name="invalid" >' + data.first + ' already exist!</span>');
+                                }
+                                if (!$("#invalid1").length) {
+                                    $('#lastname').before('<span class="form-label is-invalid" id="invalid1" name="invalid1" >' + data.last + ' already exist!</span>');
+                                }
+                                $("#firstname").attr('class', 'form-control is-invalid');
+                                $("#lastname").attr('class', 'form-control is-invalid');
+
+                            }
+                        }
+
+                  
+                    })
+            }
+        })
+    });
+
+
+</script>
+

@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="adminx-main-content">
+    <div class="container-fluid">
+        <!-- BreadCrumb -->
+        <nav aria-label="breadcrumb" role="navigation">
+            <ol class="breadcrumb adminx-page-breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            </ol>
+        </nav>
+
+        <div class="pb-3">
+            <h1>Dashboard</h1>
+        </div>
+
+        <div class="row">
+
+
+
+
+            <div class="col-md-6 col-lg-3 d-flex">
+                <div class="card border-0 bg-primary text-white text-center mb-grid w-100">
+                    <div class="d-flex flex-row align-items-center h-100">
+                        <div class="card-icon d-flex align-items-center h-100 justify-content-center">
+                            <i data-feather="user-plus"></i>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-info-title">Player</div>
+                            <h3 class="card-title mb-0">
+                                @ViewBag.Player
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 d-flex">
+                <div class="card border-0 bg-success text-white text-center mb-grid w-100">
+                    <div class="d-flex flex-row align-items-center h-100">
+                        <div class="card-icon d-flex align-items-center h-100 justify-content-center">
+                            <i data-feather="users"></i>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-info-title">Manager</div>
+                            <h3 class="card-title mb-0">
+                                @ViewBag.Manager
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 d-flex">
+                <div class="card border-0 bg-info text-white text-center mb-grid w-100">
+                    <div class="d-flex flex-row align-items-center h-100">
+                        <div class="card-icon d-flex align-items-center h-100 justify-content-center">
+                            <i data-feather="user"></i>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-info-title">Coach</div>
+                            <h3 class="card-title mb-0">
+                                @ViewBag.Coach
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3 d-flex">
+                <div class="card border-0 bg-warning text-white text-center mb-grid w-100">
+                    <div class="d-flex flex-row align-items-center h-100">
+                        <div class="card-icon d-flex align-items-center h-100 justify-content-center">
+                            <i data-feather="flag"></i>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-info-title">Team</div>
+                            <h3 class="card-title mb-0">
+                                @ViewBag.Team
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

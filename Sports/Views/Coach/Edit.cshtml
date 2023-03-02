@@ -1,0 +1,159 @@
+﻿@model Sports.Models.tbl_coach
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="adminx-content">
+    <div class="adminx-main-content">
+        <div class="container-fluid">
+            @using (Html.BeginForm())
+
+            {
+
+                <input type="hidden" value="@Model.coach_id" id="coach_id" name="coach_id" />
+                <input type="hidden" value="@Model.created_date" id="created_date" name="created_date" />
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Edit Coach</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <table class="table">
+
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <table class="table table-bordered">
+
+
+
+                                                    <tr>
+                                                        <td>
+                                                            Firstname:
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="firstname" value="@Model.firstname" type="text" name="firstname" class="form-control" style="width: 400px;" maxlength="25" />
+                                                        </td>
+
+                                                    </tr>
+
+
+                                                    <tr>
+                                                        <td>
+                                                            Lastname:
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="lastname" type="text" value="@Model.lastname" name="lastname" class="form-control" style="width: 400px;" maxlength="25" />
+                                                        </td>
+
+                                                    </tr>
+
+
+                                                </table>
+
+
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+                    <tr>
+                        <td>
+
+                            <input type="button" id="btnUpdate" name="btnUpdate" value="Update" class="btn btn-primary float-right" />
+                        </td>
+                    </tr>
+
+
+
+                </table>
+
+
+                @Html.ActionLink("Back to List", "Index")
+
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#btnUpdate").click(function () {
+            var coach = {}
+            coach.coach_id = $("#coach_id").val();
+            coach.firstname = $("#firstname").val().trim();
+            coach.lastname = $("#lastname").val().trim();
+            coach.created_date = $("#created_date").val().trim();
+            if (coach.firstname == "" && coach.lastname == "") {
+                if (!$("#invalid").length) { // check if invalid not exist in form
+                    $('#firstname').before('<span class="form-label is-invalid" id="invalid" name="invalid" >Please enter a firstname</span>');
+                }
+                if (!$("#invalid1").length) {// check if invalid1 not exist in form
+                    $('#lastname').before('<span class="form-label is-invalid" id="invalid1" name="invalid1" >Please enter a lastname</span>');
+                }
+                $("#firstname").attr('class', 'form-control is-invalid');
+                $("#lastname").attr('class', 'form-control is-invalid');
+            }
+            else if (coach.firstname == "") {
+                if (!$("#invalid").length) {
+                    $('#firstname').before('<span class="form-label is-invalid" id="invalid" name="invalid" >Please enter a firstname</span>');
+                }
+                $("#invalid1").remove();
+                $("#lastname").attr('class', 'form-control');
+                $("#firstname").attr('class', 'form-control is-invalid');
+            }
+            else if (coach.lastname == "") {
+                if (!$("#invalid1").length) {
+                    $('#lastname').before('<span class="form-label is-invalid" id="invalid1" name="invalid1" >Please enter a lastname</span>');
+                }
+                $("#invalid").remove();
+                $("#firstname").attr('class', 'form-control');
+                $("#lastname").attr('class', 'form-control is-invalid');
+            }
+            else {
+
+                $.ajax(
+                    {
+                        type: "POST", //HTTP POST Method
+                        url: "/Coach/Edit", // Controller/View
+                        data: '{coach: ' + JSON.stringify(coach) + '}',
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+
+                            if (data.success == true) {
+
+                     
+                                alert('' + data.message + '');
+                                location.href = '/Coach/Index'
+                            }
+
+                            else {
+                                alert('' + data.message + '');
+
+                            }
+                        }
+
+
+                    })
+            }
+        })
+    });
+
+
+</script>

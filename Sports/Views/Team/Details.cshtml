@@ -1,0 +1,124 @@
+﻿@model Sports.Models.tbl_teams
+@using Sports.Models
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    SportsEntities db = new SportsEntities();
+
+    var _coach = db.vw_coach.Where(x => x.coach_id == Model.coach_id).SingleOrDefault();
+}
+
+<div class="adminx-content">
+    <div class="adminx-main-content">
+        <div class="container-fluid">
+            @using (Html.BeginForm())
+
+            {
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Team Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <table class="table">
+
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <table class="table table-bordered">
+                                                    <tr>
+                                                        <td>
+                                                            Id:
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="team_id" value="@Model.team_id" type="text" name="team_id" class="form-control" style="width: 400px;" maxlength="25" disabled />
+                                                        </td>
+
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>
+                                                            Team Name:
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="team_name" value="@Model.team_name" type="text" name="team_name" class="form-control" style="width: 400px;" maxlength="25" disabled />
+                                                        </td>
+
+                                                    </tr>
+
+
+                                                    <tr>
+                                                        <td>
+                                                            Coach:
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="coach" type="text" value="@_coach.fullname" name="coach" class="form-control" style="width: 400px;" maxlength="25" disabled />
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Description:
+                                                        </td>
+                                                        <td>
+
+                                                            @Html.TextAreaFor(model => model.description, new { @class ="form-control", disabled = "true", style = "width: 400px;", rows = "3" } )
+                                                        </td>
+
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>
+                                                            Created Date:
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="created_date" type="text" value="@Model.created_date" name="created_date" class="form-control" style="width: 400px;" maxlength="25" disabled />
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Updated Date:
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="updated_date" type="text" value="@Model.updated_date" name="updated_date" class="form-control" style="width: 400px;" maxlength="25" disabled />
+                                                        </td>
+
+                                                    </tr>
+
+                                                </table>
+
+
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+
+
+                </table>
+
+
+                @Html.ActionLink("Back to List", "Index")
+
+            }
+        </div>
+    </div>
+</div>
+

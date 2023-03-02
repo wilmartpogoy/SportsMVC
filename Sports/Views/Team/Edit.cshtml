@@ -1,0 +1,153 @@
+﻿@model Sports.Models.tbl_teams
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="adminx-content">
+    <div class="adminx-main-content">
+        <div class="container-fluid">
+            @using (Html.BeginForm())
+
+            {
+
+                <input type="hidden" value="@Model.team_id" id="team_id" name="team_id" />
+                <input type="hidden" value="@Model.created_date" id="created_date" name="created_date" />
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Edit Team</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <table class="table">
+
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <table class="table table-bordered">
+
+                                              
+
+                                                    <tr>
+                                                        <td>
+                                                            Team Name:
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="team_name" value="@Model.team_name" type="text" name="team_name" class="form-control" style="width: 400px;" maxlength="25"  />
+                                                        </td>
+
+                                                    </tr>
+
+
+                                                    <tr>
+                                                        <td>
+                                                            Coach:
+                                                        </td>
+                                                        <td>
+                                                            @Html.DropDownList("coach_id", ViewBag.coach as SelectList, new { @class = "btn btn-info dropdown-toggle" })
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Description:
+                                                        </td>
+                                                        <td>
+
+                                                            @Html.TextAreaFor(model => model.description, new { @class = "form-control", style = "width: 400px;", rows = "3" })
+                                                        </td>
+
+                                                    </tr>
+
+                                                 
+
+                                                </table>
+
+
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+                    <tr>
+                        <td>
+
+                            <input type="button" id="btnUpdate" name="btnUpdate" value="Update" class="btn btn-primary float-right" />
+                        </td>
+                    </tr>
+
+
+
+                </table>
+
+
+                @Html.ActionLink("Back to List", "Index")
+
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#btnUpdate").click(function () {
+            var team = {}
+            team.team_id = $("#team_id").val();
+            team.coach_id = $("#coach_id").val();
+        
+            team.team_name = $("#team_name").val().trim();
+            team.description = $("#description").val().trim();
+            team.created_date = $("#created_date").val().trim();
+            if (team.team_name == "") {
+                if (!$("#invalid").length) {
+                    $('#name').before('<span class="form-label is-invalid" id="invalid" name="invalid" >Please enter a team name</span>');
+                }
+
+                $("#name").attr('class', 'form-control is-invalid');
+            }
+
+            else {
+
+                $.ajax(
+                    {
+                        type: "POST", //HTTP POST Method
+                        url: "/Team/Edit", // Controller/View
+                        data: '{team: ' + JSON.stringify(team) + '}',
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+
+                            if (data.success == true) {
+                                alert('' + data.message + '');
+                                location.href = '/Team/Index'
+                            }
+
+                            else {
+                                alert('' + data.message + '');
+
+
+                            }
+                        }
+
+
+                    })
+            }
+        })
+    });
+
+
+
+</script>

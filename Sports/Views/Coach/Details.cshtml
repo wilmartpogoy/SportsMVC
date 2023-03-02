@@ -1,0 +1,111 @@
+﻿@model Sports.Models.tbl_coach
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="adminx-content">
+    <div class="adminx-main-content">
+        <div class="container-fluid">
+            @using (Html.BeginForm())
+
+            {
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Coach Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <table class="table">
+
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <table class="table table-bordered">
+
+                                                    <tr>
+                                                        <td>
+                                                            Id:
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="coach_id" value="@Model.coach_id" type="text" name="coach_id" class="form-control" style="width: 400px;" maxlength="25" disabled />
+                                                        </td>
+
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>
+                                                            Firstname:
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="firstname" value="@Model.firstname" type="text" name="firstname" class="form-control" style="width: 400px;" maxlength="25" disabled />
+                                                        </td>
+
+                                                    </tr>
+
+
+                                                    <tr>
+                                                        <td>
+                                                            Lastname:
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="lastname" type="text" value="@Model.lastname" name="lastname" class="form-control" style="width: 400px;" maxlength="25" disabled />
+                                                        </td>
+
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>
+                                                            Created Date:
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="created_date" type="text" value="@Model.created_date" name="created_date" class="form-control" style="width: 400px;" maxlength="25" disabled />
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Updated Date:
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="updated_date" type="text" value="@Model.updated_date" name="updated_date" class="form-control" style="width: 400px;" maxlength="25" disabled />
+                                                        </td>
+
+                                                    </tr>
+                                                </table>
+
+
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+            
+
+
+                </table>
+
+
+                @Html.ActionLink("Back to List", "Index")
+
+            }
+        </div>
+    </div>
+</div>
+

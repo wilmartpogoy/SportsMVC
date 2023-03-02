@@ -1,0 +1,171 @@
+﻿
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="adminx-content">
+    <div class="adminx-main-content">
+        <div class="container-fluid">
+            @using (Html.BeginForm())
+
+            {
+
+
+
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Create Team</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <table class="table">
+
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <table class="table table-bordered">
+
+
+
+
+
+                                                    <tr>
+                                                        <td>
+                                                            Team Name:
+                                                        </td>
+                                                        <td>
+
+                                                            <input id="name" type="text" name="name" class="form-control" style="width: 400px;" maxlength="25" />
+                                                        </td>
+
+                                                    </tr>
+
+
+
+                                                    <tr>
+                                                        <td>
+                                                            Coach:
+                                                        </td>
+                                                        <td>
+
+                                                            @Html.DropDownList("coach_id", ViewBag.coach as SelectList, new { @class = "btn btn-info dropdown-toggle" })
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Description:
+                                                        </td>
+                                                        <td>
+                                                            <textarea class="form-control" id="descript" name="descript" rows="3" style="width: 400px;"></textarea>
+
+                                                        </td>
+
+                                                    </tr>
+
+
+
+
+                                                </table>
+
+
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+                    <tr>
+                        <td>
+
+                            <input type="button" id="btnSubmit" name="btnSubmit" value="Submit" class="btn btn-secondary float-right" />
+                        </td>
+                    </tr>
+
+
+
+                </table>
+
+
+                @Html.ActionLink("Back to List", "Index")
+
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#btnSubmit").click(function () {
+            var team = {}
+            team.team_name = $("#name").val().trim();
+            team.coach_id = $("#coach_id").val().trim();
+            team.description = $("#descript").val().trim();
+
+            if (team.team_name == "") {
+                if (!$("#invalid").length) {
+                    $('#name').before('<span class="form-label is-invalid" id="invalid" name="invalid" >Please enter a team name</span>');
+                }
+
+                $("#name").attr('class', 'form-control is-invalid');
+            }
+    
+            else {
+
+                $.ajax(
+                    {
+                        type: "POST", //HTTP POST Method
+                        url: "/Team/Create", // Controller/View
+                        data: '{team: ' + JSON.stringify(team) + '}',
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+
+                            if (data.success == true) {
+                                $("#invalid").remove();
+                                $("#name").attr('class', 'form-control');
+                                $('#name').val("");
+                                $('#descript').val("");
+                                alert('' + data.message + '');
+                            }
+
+                            else {
+                                if (!$("#invalid").length) {
+                                    $('#name').before('<span class="form-label is-invalid" id="invalid" name="invalid" >' + data.message + '</span>');
+                                }
+                             
+                                $("#name").attr('class', 'form-control is-invalid');
+                          
+
+                            }
+                        }
+
+
+                    })
+            }
+        })
+    });
+
+
+</script>
+

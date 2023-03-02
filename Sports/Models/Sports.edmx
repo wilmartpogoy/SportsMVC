@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SportsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_coach">
+          <Key>
+            <PropertyRef Name="coach_id" />
+          </Key>
+          <Property Name="coach_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="20" />
+          <Property Name="lastname" Type="varchar" MaxLength="20" />
+          <Property Name="created_date" Type="datetime" />
+          <Property Name="updated_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_manager">
+          <Key>
+            <PropertyRef Name="manager_id" />
+          </Key>
+          <Property Name="manager_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="20" />
+          <Property Name="lastname" Type="varchar" MaxLength="20" />
+          <Property Name="created_date" Type="datetime" />
+          <Property Name="updated_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_player">
+          <Key>
+            <PropertyRef Name="player_id" />
+          </Key>
+          <Property Name="player_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="manager_id" Type="int" />
+          <Property Name="team_id" Type="int" />
+          <Property Name="firstname" Type="varchar" MaxLength="20" />
+          <Property Name="lastname" Type="varchar" MaxLength="20" />
+          <Property Name="jersey_no" Type="int" />
+          <Property Name="created_date" Type="datetime" />
+          <Property Name="updated_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_teams">
+          <Key>
+            <PropertyRef Name="team_id" />
+          </Key>
+          <Property Name="team_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="coach_id" Type="int" />
+          <Property Name="team_name" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="description" Type="varchar(max)" />
+          <Property Name="created_date" Type="datetime" Nullable="false" />
+          <Property Name="updated_date" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'D:\CSD215\PROGRAMMING-LANGUAGE-PROJECT-WILMARTPOGOY123\SRC\SPORTS\SPORTS\APP_DATA\SPORTS.MDF.dbo.vw_coach' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_coach">
+          <Key>
+            <PropertyRef Name="coach_id" />
+          </Key>
+          <Property Name="coach_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fullname" Type="varchar" MaxLength="41" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'D:\CSD215\PROGRAMMING-LANGUAGE-PROJECT-WILMARTPOGOY123\SRC\SPORTS\SPORTS\APP_DATA\SPORTS.MDF.dbo.vw_manager' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_manager">
+          <Key>
+            <PropertyRef Name="manager_id" />
+          </Key>
+          <Property Name="manager_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fullname" Type="varchar" MaxLength="41" />
+        </EntityType>
+        <EntityContainer Name="SportsModelStoreContainer">
+          <EntitySet Name="tbl_coach" EntityType="Self.tbl_coach" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_manager" EntityType="Self.tbl_manager" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_player" EntityType="Self.tbl_player" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_teams" EntityType="Self.tbl_teams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vw_coach" EntityType="Self.vw_coach" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_coach].[coach_id] AS [coach_id], 
+    [vw_coach].[fullname] AS [fullname]
+    FROM [dbo].[vw_coach] AS [vw_coach]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_manager" EntityType="Self.vw_manager" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_manager].[manager_id] AS [manager_id], 
+    [vw_manager].[fullname] AS [fullname]
+    FROM [dbo].[vw_manager] AS [vw_manager]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SportsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SportsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_coach" EntityType="SportsModel.tbl_coach" />
+          <EntitySet Name="tbl_manager" EntityType="SportsModel.tbl_manager" />
+          <EntitySet Name="tbl_teams" EntityType="SportsModel.tbl_teams" />
+          <EntitySet Name="tbl_player" EntityType="SportsModel.tbl_player" />
+          <EntitySet Name="vw_coach" EntityType="SportsModel.vw_coach" />
+          <EntitySet Name="vw_manager" EntityType="SportsModel.vw_manager" />
+        </EntityContainer>
+        <EntityType Name="tbl_coach">
+          <Key>
+            <PropertyRef Name="coach_id" />
+          </Key>
+          <Property Name="coach_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="lastname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_manager">
+          <Key>
+            <PropertyRef Name="manager_id" />
+          </Key>
+          <Property Name="manager_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="lastname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_teams">
+          <Key>
+            <PropertyRef Name="team_id" />
+          </Key>
+          <Property Name="team_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="coach_id" Type="Int32" />
+          <Property Name="team_name" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="created_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbl_player">
+          <Key>
+            <PropertyRef Name="player_id" />
+          </Key>
+          <Property Name="player_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="manager_id" Type="Int32" />
+          <Property Name="team_id" Type="Int32" />
+          <Property Name="firstname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="lastname" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="jersey_no" Type="Int32" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="updated_date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="vw_coach">
+          <Key>
+            <PropertyRef Name="coach_id" />
+          </Key>
+          <Property Name="coach_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fullname" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vw_manager">
+          <Key>
+            <PropertyRef Name="manager_id" />
+          </Key>
+          <Property Name="manager_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fullname" Type="String" MaxLength="41" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SportsModelStoreContainer" CdmEntityContainer="SportsEntities">
+          <EntitySetMapping Name="tbl_coach">
+            <EntityTypeMapping TypeName="SportsModel.tbl_coach">
+              <MappingFragment StoreEntitySet="tbl_coach">
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="coach_id" ColumnName="coach_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_manager">
+            <EntityTypeMapping TypeName="SportsModel.tbl_manager">
+              <MappingFragment StoreEntitySet="tbl_manager">
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="manager_id" ColumnName="manager_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_teams">
+            <EntityTypeMapping TypeName="SportsModel.tbl_teams">
+              <MappingFragment StoreEntitySet="tbl_teams">
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="team_name" ColumnName="team_name" />
+                <ScalarProperty Name="coach_id" ColumnName="coach_id" />
+                <ScalarProperty Name="team_id" ColumnName="team_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_player">
+            <EntityTypeMapping TypeName="SportsModel.tbl_player">
+              <MappingFragment StoreEntitySet="tbl_player">
+                <ScalarProperty Name="updated_date" ColumnName="updated_date" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="jersey_no" ColumnName="jersey_no" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="team_id" ColumnName="team_id" />
+                <ScalarProperty Name="manager_id" ColumnName="manager_id" />
+                <ScalarProperty Name="player_id" ColumnName="player_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_coach">
+            <EntityTypeMapping TypeName="SportsModel.vw_coach">
+              <MappingFragment StoreEntitySet="vw_coach">
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="coach_id" ColumnName="coach_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_manager">
+            <EntityTypeMapping TypeName="SportsModel.vw_manager">
+              <MappingFragment StoreEntitySet="vw_manager">
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="manager_id" ColumnName="manager_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

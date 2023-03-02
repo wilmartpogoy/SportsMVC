@@ -1,0 +1,194 @@
+﻿@model IList<Sports.Models.Player>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<div class="adminx-content">
+    <div class="adminx-main-content">
+        <div class="container-fluid">
+
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">List of Player</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>
+                        <table class="table">
+
+
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @Html.ActionLink("Create New", "Create", new { @class = "btn btn-link" })
+                                    </td>
+
+                                    @using (Html.BeginForm("Index", "Player", FormMethod.Get))
+                                    {
+
+                                        <td><input id="firstname" type="text" name="firstname" placeholder="Firstname..." class="form-control" /></td>
+
+                                        <td><input id="lastname" type="text" name="lastname" placeholder="Lastname..." class="form-control" /></td>
+                                        <td><input id="team" type="text" name="team" placeholder="Team..." class="form-control" /></td>
+                                        <td><input id="manager" type="text" name="manager" placeholder="Manager..." class="form-control" /></td>
+                                        <td><input id="jersey" type="number" name="jersey" placeholder="Jersey..." class="form-control" /></td>
+                                        <td>
+                                            <input type="submit" name="go" value="Go" , new {@class="btn btn-primary" } />
+                                        </td>
+                                    }
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="margin-top: 5px;margin-bottom: 5px">
+                            <table class="table table-bordered" id="data-table">
+                                <thead>
+                                    <tr>
+
+                                        <th>
+                                            Id
+                                        </th>
+                                        <th>
+                                            Firstname
+                                        </th>
+                                        <th>
+                                            Lastname
+                                        </th>
+                                        <th>
+                                            Jersey
+                                        </th>
+                                        <th>
+                                            Manager
+                                        </th>
+                                        <th>
+                                            Team
+                                        </th>
+                                        <th>
+                                            Created Date
+                                        </th>
+
+                                        <th>
+                                            Updated Date
+                                        </th>
+
+
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.player_id)
+                                            </td>
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.firstname)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.lastname)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.jersey_no)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.fullname)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.team_name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.created_date)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.updated_date)
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Edit", "Edit", new { player_id = item.player_id }, new { @class = "btn btn-sm btn-primary" })
+                                                @Html.ActionLink("Details", "Details", new { player_id = item.player_id }, new { @class = "btn btn-sm btn-success" })
+                                                <input type="button" id="delete" name="delete" value="Delete" class="btn btn-sm btn-danger" onclick="Delete('@item.player_id')" />
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+
+
+                                <tr>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+
+
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+@section scripts{
+
+
+
+    <script type="text/javascript">
+        function Delete(_value) {
+
+            var _check = confirm('Do you want to delete this player?');
+            if (_check) {
+                $.ajax(
+                    {
+                        type: "POST", //HTTP POST Method
+                        url: "/Player/Delete", // Controller/View
+                        data: {
+                            id: _value
+                        },
+                        success: function (data) {
+                            if (data.success == false) {
+                                alert(data.message);
+                            }
+                            else {
+                                alert(data.message);
+                                location.reload();
+                            }
+
+                        }
+
+
+                    })
+            } else {
+                return false;
+            }
+        }
+        $(document).ready(function () {
+
+
+            $('#data-table').DataTable(
+                {
+                    searching: false,
+                    lengthChange: true,
+                    lengthMenu: [5, 10, 25, 50, 100],
+                    sorting: true
+
+
+                }
+            );
+
+
+
+        });
+    </script>
+}
